@@ -1,0 +1,31 @@
+// C++ code
+//
+/*
+  This program blinks pin 13 of the Arduino (the
+  built-in LED) when there is motion around sensor
+*/
+
+void setup()
+{
+  Serial.begin(9600);
+  pinMode(2, INPUT);
+  pinMode(13, OUTPUT);
+}
+
+void loop()
+{
+  if(digitalRead(2) == HIGH)
+  {
+  	// turn the LED on (HIGH is the voltage level)
+  	digitalWrite(13, HIGH);
+    Serial.println("Active");
+  }
+  else
+  {
+    
+  // turn the LED off by making the voltage LOW
+  	digitalWrite(13, LOW);
+    Serial.println("Inactive");
+  }
+  delay(1000); // Wait for 1000 millisecond(s)
+}
