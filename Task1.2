@@ -1,0 +1,25 @@
+const int buttonPin = 2;// the number of push button
+const int ledPin = 13;// the number of LED pin
+
+uint8_t led_state = LOW;
+
+void setup(){
+  //intialize the led pin as OUTPUT
+  pinMode(ledPin, OUTPUT);
+  
+  //intialize the push button as INPUT
+  pinMode(buttonPin, INPUT);
+  
+  //AttachInterrupt to the ISR vector
+  attachInterrupt(digitalPinToInterrupt(buttonPin), pin_ISR, FALLING);
+}
+
+void loop(){
+  delay(500);
+}
+
+void pin_ISR(){
+  led_state = !led_state;
+  digitalWrite(ledPin, led_state);
+
+}
