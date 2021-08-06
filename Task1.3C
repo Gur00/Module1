@@ -1,0 +1,37 @@
+const int buttonPin = 2;// the number of push button
+const int ledPin1 = 13;// the number of LED pin colour-Red
+const int ledPin2 = 9;// the number of second LED pin colour-orange
+
+
+uint8_t led_state = LOW;
+int sensorValue = 0;
+
+void setup(){
+  pinMode(A0,INPUT); //Input point for photoresistor
+  Serial.begin(9600);
+  
+  pinMode(ledPin2, OUTPUT);
+  //intialize the led pin as OUTPUT
+  pinMode(ledPin1, OUTPUT);
+
+  //intialize the push button as INPUT
+  pinMode(buttonPin, INPUT);
+
+  //AttachInterrupt to the ISR vector
+  attachInterrupt(digitalPinToInterrupt(buttonPin), pin_ISR, FALLING);
+}
+
+void loop(){
+  //reading sensor value
+  sensorValue = analogRead(A0);
+  Serial.println(sensorValue);
+  //mapping value sensor value to the LED range
+  analogWrite(9, map(sensorValue, 0, 1023, 0, 255));
+  delay(100);
+}
+
+void pin_ISR(){
+  led_state = !led_state;
+  digitalWrite(ledPin1, led_state);
+
+}
